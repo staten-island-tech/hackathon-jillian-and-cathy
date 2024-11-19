@@ -1,88 +1,98 @@
 import pygame
 import random
 
-# Constants
-WINDOW_WIDTH = 400
-WINDOW_HEIGHT = 600
-TILE_WIDTH = WINDOW_WIDTH // 4
-TILE_HEIGHT = WINDOW_HEIGHT // 6
-FPS = 60
-
-# Colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-
 # Initialize Pygame
 pygame.init()
-screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption("Piano Tiles Game")
-clock = pygame.time.Clock()
 
-# Game Variables
+# Set up display
+WIDTH, HEIGHT = 400, 1000
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Piano Tiles")
+
+# Set up colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+TILE_COLOR = (244, 194, 194)
+
+# Game variables
+tile_width = WIDTH // 4
+tile_height = HEIGHT // 5
+tile_speed = 8
+level_speed_up = 10 
+title_drop_speed = 5
 tiles = []
 score = 0
 game_over = False
 
-# Function to create tiles
-def create_tile():
-    tile_x = random.randint(0, 3) * TILE_WIDTH
-    return {'x': tile_x, 'y': 0}
+# Define tile class
+class Tile:
+    def __init__(self):
+        self.x = random.randint(0, 3) * tile_width
+        self.y = 0
+        self.rect = pygame.Rect(self.x, self.y, tile_width, HEIGHT // 10)
 
-# Function to draw the tiles
-def draw_tiles():
-    for tile in tiles:
-        pygame.draw.rect(screen, BLACK, (tile['x'], tile['y'], TILE_WIDTH, TILE_HEIGHT))
+    def fall(self):
+        self.y += tile_speed
+        self.rect.y = self.y
+
+    def reset(self):
+        self.__init__()
+
+    def draw(self):
+        pygame.draw.rect(screen, TILE_COLOR, self.rect)
 
 # Main game loop
-def run_game():
+def main():
     global score, game_over
-    tiles.append(create_tile())
-    last_tile_time = pygame.time.get_ticks()
+    clock = pygame.time.Clock()
+    
+    # Generate initial tiles
+    for _ in range(5):
+        tiles.append(Tile())
 
-    while not game_over:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                game_over = True
-            
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1 and len(tiles) > 0 and tiles[0]['x'] == 0 * TILE_WIDTH:
-                    score += 1
-                    tiles.pop(0)
-                elif event.key == pygame.K_2 and len(tiles) > 0 and tiles[0]['x'] == 1 * TILE_WIDTH:
-                    score += 1
-                    tiles.pop(0)
-                elif event.key == pygame.K_3 and len(tiles) > 0 and tiles[0]['x'] == 2 * TILE_WIDTH:
-                    score += 1
-                    tiles.pop(0)
-                elif event.key == pygame.K_4 and len(tiles) > 0 and tiles[0]['x'] == 3 * TILE_WIDTH:
-                    score += 1
-                    tiles.pop(0)
-                else:
-                    # If the player pressed a wrong key
-                    game_over = True
-            
+    while True:
         screen.fill(WHITE)
 
-        # Move tiles down
-        for tile in list(tiles):
-            tile['y'] += 5
-            if tile['y'] > WINDOW_HEIGHT:
+        # Event handling
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                mouse_x, mouse_y = event.pos
+                for tile in tiles:
+                    if tile.rect.collidepoint(mouse_x, mouse_y):
+                        score += 1
+                        tile.reset()
+
+        # Update tiles
+        for tile in tiles:
+            tile.fall()
+            if tile.y > HEIGHT:
                 game_over = True
 
-        # Draw the tiles
-        draw_tiles()
-        
-        # Create a new tile every half second
-        if pygame.time.get_ticks() - last_tile_time > 500:
-            tiles.append(create_tile())
-            last_tile_time = pygame.time.get_ticks()
+        # Drawing tiles
+        for tile in tiles:
+            tile.draw()
 
-        # Update the display
+        # Draw score
+        font = pygame.font.Font(None, 36)
+        text = font.render(f"Score: {score}", True, BLACK)
+        screen.blit(text, (10, 10))
+
+        if game_over:
+            game_over_font = pygame.font.Font(None, 74)
+            game_over_text = game_over_font.render("Game Over", True, BLACK)
+            screen.blit(game_over_text, (WIDTH // 6, HEIGHT // 3))
+            pygame.display.flip()
+            pygame.time.wait(2000)
+            pygame.quit()
+            return
+
         pygame.display.flip()
-        clock.tick(FPS)
-
-    print(f"Game Over! Your score: {score}")
-    pygame.quit()
+        clock.tick(30)
 
 if __name__ == "__main__":
-    run_game()
+    main()
+
