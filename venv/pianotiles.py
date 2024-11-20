@@ -3,17 +3,21 @@ import random
 import sys
 
 # Constants
-SCREEN_WIDTH = 400
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 856
 TILE_WIDTH = SCREEN_WIDTH // 4
 TILE_HEIGHT = 100
 FPS = 60
 
+
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-TILE_COLOR = (49, 140, 231)
+TILE_COLOR = (255, 255, 255)
 HIT_COLOR = (255, 0, 0)
+
+background_image = pygame.image.load('pianotilesbackground.jpg')  # Add your own background image
+background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Initialize Pygame
 pygame.init()
@@ -31,6 +35,7 @@ class Tile:
 
     def draw(self, surface):
         pygame.draw.rect(surface, TILE_COLOR, self.rect)
+
 
 # Game Variables
 tiles = []
@@ -73,7 +78,7 @@ while True:
                 game_over = True
 
         # Redraw the screen
-        screen.fill(WHITE)
+        screen.blit(background_image, (0, 0))
         for tile in tiles:
             tile.draw(screen)
 
@@ -94,7 +99,7 @@ while True:
         restart_text = font.render('Click to Restart', True, BLACK)
 
         screen.blit(end_text, (SCREEN_WIDTH // 2 - end_text.get_width() // 2, SCREEN_HEIGHT // 2 - end_text.get_height()))
-        screen.blit(score_text, (SCREEN_WIDTH // 2 - score_text.get_width() // 2, SCREEN_HEIGHT // 2 + end_text.get_height()))
+        screen.blit(score_text, (SCREEN_WIDTH // 2 - score_text.get_width() // 2, SCREEN_HEIGHT // 2  + end_text.get_height()))
         screen.blit(restart_text, (SCREEN_WIDTH // 2 - restart_text.get_width() // 2, SCREEN_HEIGHT // 2 + end_text.get_height() + score_text.get_height() + 10))
 
         pygame.display.flip()
@@ -106,3 +111,4 @@ while True:
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 reset_game()
+
