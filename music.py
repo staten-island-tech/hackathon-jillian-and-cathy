@@ -5,20 +5,21 @@ import random
 pygame.init()
 
 # Set up display
-WIDTH, HEIGHT = 400, 1000
+WIDTH, HEIGHT = 500, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Piano Tiles")
-
+background = pygame.image.load('images.png')
+background = pygame.transform.scale(background, (500, 800))
 # Set up colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-TILE_COLOR = (244, 194, 194)
+TILE_COLOR = (0, 128, 0)
 
 # Game variables
 tile_width = WIDTH // 4
-tile_height = HEIGHT // 5
+tile_height = HEIGHT // 20
 tile_speed = 8
-level_speed_up = 10 
+level_speed_up = 20 
 title_drop_speed = 5
 tiles = []
 score = 0
@@ -29,7 +30,7 @@ class Tile:
     def __init__(self):
         self.x = random.randint(0, 3) * tile_width
         self.y = 0
-        self.rect = pygame.Rect(self.x, self.y, tile_width, HEIGHT // 10)
+        self.rect = pygame.Rect(self.x, self.y, tile_width, HEIGHT // 3.5)
 
     def fall(self):
         self.y += tile_speed
@@ -47,11 +48,12 @@ def main():
     clock = pygame.time.Clock()
     
     # Generate initial tiles
-    for _ in range(5):
+    for _ in range(2):
         tiles.append(Tile())
 
     while True:
-        screen.fill(WHITE)
+        screen.blit(background, (0, 0))
+        pygame.display.flip()
 
         # Event handling
         for event in pygame.event.get():
@@ -84,6 +86,7 @@ def main():
         if game_over:
             game_over_font = pygame.font.Font(None, 74)
             game_over_text = game_over_font.render("Game Over", True, BLACK)
+            game_over_score = game_over_font.render()
             screen.blit(game_over_text, (WIDTH // 6, HEIGHT // 3))
             pygame.display.flip()
             pygame.time.wait(2000)
