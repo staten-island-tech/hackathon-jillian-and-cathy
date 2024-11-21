@@ -92,7 +92,7 @@ def main():
             game_over_text = game_over_font.render("Game Over", True, BLACK)
             game_over_score = game_over_font.render(f"Final score: {score}", True, BLACK)
             screen.blit(game_over_text, (WIDTH // 6, HEIGHT //3 ))
-            screen.blit(game_over_score, (20, 10))
+            screen.blit(game_over_score, (50, 10))
             pygame.display.flip()
             pygame.time.wait(2000)            
             pygame.quit()
