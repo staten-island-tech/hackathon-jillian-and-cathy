@@ -15,6 +15,9 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 TILE_COLOR = (0, 128, 0)
 
+#background music
+pygame.mixer.music.load('we-wish-you-a-merry-christmas-172279.mp3')
+pygame.mixer.music.play(-1)
 # Game variables
 tile_width = WIDTH // 4
 tile_height = HEIGHT // 20
@@ -84,12 +87,14 @@ def main():
         screen.blit(text, (10, 10))
 
         if game_over:
+            pygame.mixer.music.stop
             game_over_font = pygame.font.Font(None, 74)
             game_over_text = game_over_font.render("Game Over", True, BLACK)
-            game_over_score = game_over_font.render(score, True, BLACK)
+            game_over_score = game_over_font.render("Score: ", True, BLACK)
+            screen.blit(game_over_text, (WIDTH // 6, HEIGHT //3 ))
             screen.blit(game_over_text, (WIDTH // 6, HEIGHT // 3))
             pygame.display.flip()
-            pygame.time.wait(2000)
+            pygame.time.wait(2000)            
             pygame.quit()
             return
 
