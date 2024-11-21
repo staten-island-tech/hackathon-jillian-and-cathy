@@ -6,8 +6,8 @@ import sys
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 856
 TILE_WIDTH = SCREEN_WIDTH // 4
-TILE_HEIGHT = 100
-FPS = 60
+TILE_HEIGHT = 200
+FPS = 50
 
 
 # Colors
@@ -24,6 +24,10 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Piano Tiles")
 clock = pygame.time.Clock()
+
+# Load music
+pygame.mixer.music.load('jingle-bells-music-holiday-christmas-new-year-background-intro-theme-265845.mp3')
+pygame.mixer.music.play(-1)
 
 # Tile Class
 class Tile:
@@ -53,6 +57,7 @@ while True:
     # Event Handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            pygame.mixer.music.stop()
             pygame.quit()
             sys.exit()
         if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
@@ -76,6 +81,7 @@ while True:
             tile.move()
             if tile.rect.top > SCREEN_HEIGHT:  # Check for game over condition
                 game_over = True
+                pygame.mixer.music.pause()
 
         # Redraw the screen
         screen.blit(background_image, (0, 0))
@@ -107,8 +113,10 @@ while True:
         # Wait for click to restart
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.mixer.music.stop()
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 reset_game()
+                pygame.mixer.music.unpause()
 
