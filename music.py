@@ -90,7 +90,6 @@ def main():
             pygame.mixer.music.stop
             game_over_font = pygame.font.Font(None, 74)
             game_over_text = game_over_font.render("Game Over", True, BLACK)
-            game_over_score = game_over_font.render(f"Final score: {score}", True, BLACK)
             screen.blit(game_over_text, (WIDTH // 6, HEIGHT //3 ))
             screen.blit(game_over_score, (50, 10))
             pygame.display.flip()
