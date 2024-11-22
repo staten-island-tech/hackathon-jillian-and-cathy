@@ -26,6 +26,8 @@ pygame.display.set_caption("Piano Tiles")
 clock = pygame.time.Clock()
 
 # Load music
+pygame.mixer.init()
+pygame.init()
 pygame.mixer.music.load('jingle-bells-music-holiday-christmas-new-year-background-intro-theme-265845.mp3')
 pygame.mixer.music.play(-1)
 
