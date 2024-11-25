@@ -56,7 +56,7 @@ def main():
 
     while True:
         screen.blit(background, (0, 0))
-        pygame.display.flip()
+        
 
         # Event handling
         for event in pygame.event.get():
@@ -70,7 +70,7 @@ def main():
                     if tile.rect.collidepoint(mouse_x, mouse_y):
                         score += 1
                         tile.reset()
-
+                        pygame.display.flip()
         # Update tiles
         for tile in tiles:
             tile.fall()
