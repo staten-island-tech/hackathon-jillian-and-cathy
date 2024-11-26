@@ -2,7 +2,7 @@ import pygame
 import random
 
 def play_game2():
-    print("Playing Game 2: We Wish You a Merry Christmas")
+    print("Playing Game 2: Be Bish Bou b Berry Bhristmas")
     # Your game logic goes here
 
 pygame.init()

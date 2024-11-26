@@ -3,7 +3,7 @@ import random
 import sys
 
 def play_game1():
-    print("Playing Game 1: Jingle Bells")
+    print("Playing Game 1: Bingle Jells")
 
 # Constants
 SCREEN_WIDTH = 640
