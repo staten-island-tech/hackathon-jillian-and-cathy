@@ -75,10 +75,6 @@ def main():
                         score += 1
                         tile.reset()
                         pygame.display.flip()
-<<<<<<< HEAD
-
-=======
->>>>>>> main
         # Update tiles
         for tile in tiles:
             tile.fall()
