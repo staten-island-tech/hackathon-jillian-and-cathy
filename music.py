@@ -56,7 +56,7 @@ def main():
 
     while True:
         screen.blit(background, (0, 0))
-        pygame.display.flip()
+
 
         # Event handling
         for event in pygame.event.get():
@@ -70,6 +70,7 @@ def main():
                     if tile.rect.collidepoint(mouse_x, mouse_y):
                         score += 1
                         tile.reset()
+                        pygame.display.flip()
 
         # Update tiles
         for tile in tiles:
@@ -90,7 +91,6 @@ def main():
             pygame.mixer.music.stop()
             game_over_font = pygame.font.Font(None, 74)
             game_over_text = game_over_font.render("Game Over", True, BLACK)
-            game_over_score = game_over_font.render(f"Final score: {score}", True, BLACK)
             screen.blit(game_over_text, (WIDTH // 6, HEIGHT //3 ))
             pygame.display.flip()
             pygame.time.wait(2000)            
