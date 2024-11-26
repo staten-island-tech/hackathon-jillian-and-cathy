@@ -117,7 +117,7 @@ def main():
 if __name__ == "__main__":
     main()
 
-Using the example, I switched certain names to make the code match with my code:
+Using the example, I switched certain names to make the code match with my code. My result was:
 
 def play_game1():
     print("Playing Game 1: Jingle Bells")
