@@ -70,5 +70,54 @@ ChatGPT wrote a slightly different code in certain areas:
             reset_game()
             pygame.mixer.music.unpause()
 
+<<<<<<< Updated upstream
 I learned how to modify certain areas in a code to pause and unpause
+=======
+I learned how to modify certain areas in a code to pause and unpause.
+
+4. I need to write a code to ask the user to choose which game they to play, then run it.
+
+I asked "How to ask for user input to choose which game they want to play in a piano tiles game, each game is in two different files in python"
+
+ChatGPT gave me an example:
+def play_game1():
+    print("Playing Game 1: Basic Piano Tiles")
+    # Your game logic goes here
+
+if __name__ == "__main__":
+    play_game1()
+game2.py
+
+
+def play_game2():
+    print("Playing Game 2: Advanced Piano Tiles")
+    # Your game logic goes here
+
+if __name__ == "__main__":
+    play_game2()
+
+
+import sys
+
+def main():
+    print("Welcome to Piano Tiles!")
+    print("Please choose a game to play:")
+    print("1. Game 1: Basic Piano Tiles")
+    print("2. Game 2: Advanced Piano Tiles")
+
+    choice = input("Enter the number of the game you want to play (1 or 2): ")
+
+    if choice == '1':
+        import game1
+        game1.play_game1()
+    elif choice == '2':
+        import game2
+        game2.play_game2()
+    else:
+        print("Invalid choice. Please enter 1 or 2.")
+        sys.exit()
+
+if __name__ == "__main__":
+    main()
+>>>>>>> Stashed changes
 
