@@ -56,7 +56,11 @@ def main():
 
     while True:
         screen.blit(background, (0, 0))
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> main
 
         # Event handling
         for event in pygame.event.get():
@@ -71,7 +75,10 @@ def main():
                         score += 1
                         tile.reset()
                         pygame.display.flip()
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
         # Update tiles
         for tile in tiles:
             tile.fall()
